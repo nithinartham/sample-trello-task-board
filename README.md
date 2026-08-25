@@ -2,9 +2,10 @@
 
 **Candidate:** Nithin Artham
 
-A four-column Trello-style task board (Todo → In Progress → In Review → Done) with AI-powered follow-up suggestions, built with **React 17 + TypeScript + SCSS** and served as **static assets + Netlify Functions**.
+A four-column Trello-style task board (Todo → In Progress → In Review → Done) with optional AI-powered follow-up suggestions, built with **React 17 + TypeScript + SCSS** and served as **static assets + Netlify Functions**.
 
-This is a **starter scaffold** for the Qualified Digital FED development test. The project structure and configuration are complete, but the UI components, styling, and backend integration are intentionally left for you to implement.
+This repository contains the completed implementation for the Qualified Digital
+FED development test.
 
 ---
 
@@ -35,9 +36,8 @@ Get your API key from [platform.openai.com](https://platform.openai.com)
 npm run dev
 ```
 
-Opens **http://localhost:3000** with:
-- React dev server (port 3000)
-- Netlify Functions emulator (port 8888)
+Open **http://localhost:8888** for the Netlify development proxy, which serves
+the React application and local serverless function together.
 
 The NODE.js 18+ OpenSSL compatibility is already configured in `package.json`, so just run `npm run dev` directly.
 
@@ -54,7 +54,7 @@ The NODE.js 18+ OpenSSL compatibility is already configured in `package.json`, s
 
 - **Frontend:** React 17 + TypeScript 4 + SCSS with design tokens
 - **Serverless:** Netlify Functions (TypeScript) for backend
-- **AI:** OpenAI Node SDK v4 (gpt-3.5-turbo for suggestions)
+- **AI:** OpenAI Node SDK v4 with configurable OpenAI-compatible providers
 - **Build:** Create React App with Webpack 4
 - **Styling:** SCSS with BEM naming and responsive design
 
@@ -69,7 +69,8 @@ When a user adds a task, the app can fetch AI-powered follow-up suggestions via 
 **Flow:**
 1. User submits task text in `NewTaskForm`
 2. `fetchFollowUps()` makes POST request to `/.netlify/functions/suggest`
-3. Netlify Function calls OpenAI's `chat.completions.create()`
+3. Netlify Function calls the configured provider or returns labeled offline
+   demo suggestions when no key is configured
 4. Suggestions are returned and displayed as clickable buttons
 5. User can click a suggestion to add it as a new task
 
@@ -117,22 +118,22 @@ src/
 
 ---
 
-## 🎯 Your Task
+## ✅ Implemented Features
 
-Build out the following to make the board functional:
-
-1. **UI Components** — Implement `Column`, `TaskCard`, and `NewTaskForm` components
-2. **Task Management** — Wire state logic in `ChallengeComponent` (add, move, delete tasks)
-3. **Styling** — Create responsive SCSS layout with design tokens
-4. **API Integration** — Implement `ai.ts` client and `suggest.ts` function (optional)
-
-See **`INSTRUCTIONS.md`** for a detailed breakdown of what to build in each component.
+- Four-column task workflow with add, move, and delete behavior
+- Native drag-and-drop with accessible movement-button alternatives
+- Bug, Story, and Task classifications
+- Fibonacci effort points with per-column totals
+- Responsive mobile, tablet, and desktop layouts
+- Optional provider-backed suggestions with a clearly labeled offline demo mode
+- Defensive API validation and graceful error handling
+- React Testing Library coverage for board, API-client, and function behavior
 
 ---
 
 ## 🔑 Environment Variables
 
-Required for AI suggestions to work:
+Optional for provider-backed AI suggestions:
 
 ```env
 OPENAI_API_KEY=sk-...              # Your OpenAI API key
@@ -144,16 +145,8 @@ OPENAI_PROJECT_ID=your-project-id  # Your OpenAI project ID
 scoping. `AI_BASE_URL` and `AI_MODEL` allow an OpenAI-compatible public provider
 to be selected without changing browser code.
 
----
-
-## 📝 Tips for Developers
-
-- **Start with `INSTRUCTIONS.md`** — It has step-by-step requirements for each component
-- **Use TypeScript** — All types are defined in `types.ts` (Task, TaskState, MoveDir)
-- **Component Hierarchy** — Keep task state in `ChallengeComponent`, pass handlers down
-- **Styling** — Use SCSS variables for consistency (colors, spacing already stubbed)
-- **Error Handling** — Handle API failures gracefully in `NewTaskForm`
-- **Testing** — Jest + React Testing Library are configured
+Without credentials, the application remains fully functional and provides
+deterministic suggestions marked **Offline demo**.
 
 ---
 
@@ -217,15 +210,12 @@ When outgrowing this scaffold:
 
 ---
 
-## 🎓 Learning Objectives
+## Engineering Highlights
 
-By completing this test, you'll demonstrate:
-- ✅ React component composition & state management
-- ✅ TypeScript type safety
-- ✅ Responsive CSS/SCSS design
-- ✅ Async API integration
-- ✅ Netlify Functions / serverless architecture
-- ✅ Git & version control
-- ✅ Problem-solving & code organization
-
-Good luck! 🚀
+- React component composition and predictable state updates
+- Strict TypeScript domain models
+- Responsive SCSS with reusable design tokens
+- Keyboard and screen-reader support
+- Async API integration with defensive response validation
+- Netlify Functions serverless architecture
+- Focused automated tests and documented AI-assisted development
