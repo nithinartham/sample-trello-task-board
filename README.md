@@ -18,18 +18,20 @@ cd qd-fed-trello-developer-test
 npm install
 ```
 
-### 2. Environment Setup
-Create a `.env` file at the project root with your OpenAI credentials:
+### 2. Optional Provider Configuration
+
+Provider-backed suggestions use a `.env` file at the project root:
 
 ```env
 OPENAI_API_KEY=sk-...
-OPENAI_PROJECT_ID=your-project-id
+OPENAI_PROJECT_ID=openai-project-id
 # Optional for another OpenAI-compatible public provider:
 AI_BASE_URL=https://provider.example/v1
 AI_MODEL=provider-model-name
 ```
 
-Get your API key from [platform.openai.com](https://platform.openai.com)
+OpenAI API credentials are managed at
+[platform.openai.com](https://platform.openai.com).
 
 ### 3. Run Development Server
 ```bash
@@ -137,8 +139,8 @@ src/
 Optional for provider-backed AI suggestions:
 
 ```env
-OPENAI_API_KEY=sk-...              # Your OpenAI API key
-OPENAI_PROJECT_ID=your-project-id  # Your OpenAI project ID
+OPENAI_API_KEY=sk-...                    # Provider API key
+OPENAI_PROJECT_ID=openai-project-id      # Optional OpenAI project ID
 ```
 
 `OPENAI_API_KEY` is required when AI suggestions are enabled.

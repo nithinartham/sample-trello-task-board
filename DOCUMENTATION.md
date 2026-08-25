@@ -109,8 +109,8 @@ in-memory state.
 Example optional AI configuration:
 
 ```env
-OPENAI_API_KEY=your-provider-key
-OPENAI_PROJECT_ID=your-openai-project-id
+OPENAI_API_KEY=provider-api-key
+OPENAI_PROJECT_ID=openai-project-id
 AI_BASE_URL=https://an-openai-compatible-provider.example/v1
 AI_MODEL=provider-model-name
 ```
