@@ -64,7 +64,7 @@ describe('App', () => {
       screen.getByRole('article', { name: 'Review implementation' })
     ).toHaveFocus();
     expect(
-      screen.getByRole('status')
+      screen.getByTestId('board-announcement')
     ).toHaveTextContent('Review implementation moved to In Progress.');
 
     fireEvent.click(
@@ -102,7 +102,7 @@ describe('App', () => {
     expect(screen.getByText('0', { selector: '.board__summary strong' })).toBeInTheDocument();
   });
 
-  it('moves a task by dragging it to another column', () => {
+  it('provides a touch-capable drag handle for each task', () => {
     render(<App />);
     fireEvent.change(screen.getByLabelText('Task description'), {
       target: { value: 'Drag this task' },
@@ -110,26 +110,12 @@ describe('App', () => {
     fireEvent.change(screen.getByLabelText('Points'), { target: { value: '8' } });
     fireEvent.click(screen.getByRole('button', { name: 'Add task' }));
 
-    const values = new Map<string, string>();
-    const dataTransfer = {
-      types: ['application/x-task-id'],
-      effectAllowed: 'none',
-      dropEffect: 'none',
-      setData: (type: string, value: string) => values.set(type, value),
-      getData: (type: string) => values.get(type) || '',
-    };
     const card = screen.getByRole('article', { name: 'Drag this task' });
-    const doneColumn = screen.getByRole('region', { name: 'Done' });
+    const dragHandle = screen.getByRole('button', { name: 'Drag Drag this task' });
 
-    fireEvent.dragStart(card, { dataTransfer });
-    fireEvent.dragOver(doneColumn, { dataTransfer });
-    fireEvent.drop(doneColumn, { dataTransfer });
-
-    expect(within(doneColumn).getByText('Drag this task')).toBeInTheDocument();
-    expect(within(doneColumn).getByLabelText('8 total points')).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent(
-      'Drag this task moved to Done.'
-    );
+    expect(card).not.toHaveAttribute('draggable');
+    expect(dragHandle).toHaveAttribute('aria-describedby');
+    expect(within(card).getByLabelText('8 points')).toBeInTheDocument();
   });
 
   it('restores saved tasks after the app remounts', () => {

@@ -1,4 +1,5 @@
-import React, { DragEvent, useState } from 'react';
+import React, { CSSProperties } from 'react';
+import { useDraggable } from '@dnd-kit/core';
 import { Task, TaskState, WorkItemType, MoveDir } from '../types';
 
 interface Props {
@@ -8,25 +9,29 @@ interface Props {
 }
 
 export default function TaskCard({ task, onMove, onDelete }: Props) {
-  const [isDragging, setIsDragging] = useState(false);
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    isDragging,
+  } = useDraggable({ id: task.id });
   const leftDisabled = task.state === TaskState.Todo;
   const rightDisabled = task.state === TaskState.Done;
-
-  const handleDragStart = (event: DragEvent<HTMLElement>) => {
-    event.dataTransfer.setData('application/x-task-id', String(task.id));
-    event.dataTransfer.effectAllowed = 'move';
-    setIsDragging(true);
-  };
+  const style: CSSProperties | undefined = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      }
+    : undefined;
 
   return (
     <article
+      ref={setNodeRef}
       className={`card${isDragging ? ' card--dragging' : ''}`}
       id={`task-${task.id}`}
       tabIndex={-1}
       aria-label={task.text}
-      draggable
-      onDragStart={handleDragStart}
-      onDragEnd={() => setIsDragging(false)}
+      style={style}
     >
       <div className="card__content">
         <div className="card__details">
@@ -43,6 +48,15 @@ export default function TaskCard({ task, onMove, onDelete }: Props) {
         </span>
       </div>
       <div className="card__actions" aria-label={`Actions for ${task.text}`}>
+        <button
+          className="card__drag-handle"
+          type="button"
+          {...attributes}
+          {...listeners}
+          aria-label={`Drag ${task.text}`}
+        >
+          <span aria-hidden="true">::</span>
+        </button>
         <button
           className="card__btn"
           type="button"

@@ -67,10 +67,12 @@ follow-up suggestions are capped at three per request.
 
 ### Drag and drop
 
-Cards use the browser's native drag-and-drop API, avoiding an additional runtime
-dependency. Columns validate the custom task identifier before accepting a drop,
-then use the same state transition and announcement path as button-based moves.
-Accessible move buttons remain the primary keyboard alternative.
+Cards use `@dnd-kit/core` mouse and touch sensors with activation constraints
+that reduce accidental drags during scrolling or clicking. A dedicated handle
+supports mouse, touch, and pen interaction across desktop, phone, and tablet
+browsers. Dropped cards use the same state transition and announcement path as
+button-based moves. Accessible move buttons remain the keyboard and
+screen-reader alternative.
 
 ### State and identifiers
 

@@ -123,7 +123,7 @@ src/
 ## ✅ Implemented Features
 
 - Four-column task workflow with add, move, and delete behavior
-- Native drag-and-drop with accessible movement-button alternatives
+- Mouse, touch, and pen drag-and-drop with accessible movement-button alternatives
 - Bug, Story, and Task classifications
 - Fibonacci effort points with per-column totals
 - Versioned local persistence across browser refreshes

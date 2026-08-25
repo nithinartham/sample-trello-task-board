@@ -113,7 +113,7 @@ button {
 
 .column {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   min-width: 0;
   min-height: 250px;
   padding: $spacing-md;
@@ -212,13 +212,13 @@ button {
 }
 
 .card {
+  position: relative;
   min-width: 0;
   padding: $spacing-md;
   border: 1px solid #eaecf0;
   border-radius: 12px;
   background: $color-surface;
   box-shadow: 0 1px 2px rgb(16 24 40 / 6%);
-  cursor: grab;
   transition: border-color 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
 
   &:focus {
@@ -226,14 +226,13 @@ button {
     outline-offset: 3px;
   }
 
-  &:active {
-    cursor: grabbing;
-  }
 }
 
 .card--dragging {
+  z-index: 10;
   border-color: $color-primary;
-  opacity: 0.45;
+  box-shadow: 0 12px 24px rgb(16 24 40 / 18%);
+  opacity: 0.85;
   cursor: grabbing;
 }
 
@@ -296,6 +295,34 @@ button {
   display: flex;
   gap: $spacing-xs;
   margin-top: $spacing-md;
+}
+
+.card__drag-handle {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  background: $color-surface;
+  color: #667085;
+  cursor: grab;
+  touch-action: none;
+
+  &:hover {
+    border-color: $color-primary;
+    background: #eff4ff;
+    color: $color-primary-dark;
+  }
+
+  &:focus {
+    outline: 3px solid $color-focus;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
 }
 
 .card__btn {

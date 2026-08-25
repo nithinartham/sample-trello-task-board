@@ -11,7 +11,7 @@ TypeScript, SCSS, and Netlify Functions scaffold.
 - Add trimmed, non-empty tasks with Fibonacci effort points to Todo.
 - Classify each work item as a Bug, Story, or Task.
 - Move tasks one column left or right without crossing board boundaries.
-- Drag tasks directly between workflow columns.
+- Drag tasks directly between workflow columns with mouse, touch, or pen input.
 - Delete tasks.
 - Display task points and per-column point totals.
 - Restore validated task data after a browser refresh.

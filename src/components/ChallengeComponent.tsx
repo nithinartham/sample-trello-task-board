@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  DndContext,
+  DragEndEvent,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
   Task,
   TaskState,
   WorkItemType,
@@ -26,6 +34,14 @@ export function TaskBoardComponent() {
   const [focusedTaskId, setFocusedTaskId] = useState<number | null>(null);
   const nextTaskId = useRef(
     Math.max(Date.now(), ...tasks.map((task) => task.id + 1))
+  );
+  const dragSensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 150, tolerance: 8 },
+    })
   );
 
   useEffect(() => {
@@ -79,6 +95,17 @@ export function TaskBoardComponent() {
     moveTaskToState(currentTask, destination);
   };
 
+  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+    if (
+      !over ||
+      typeof active.id !== 'number' ||
+      !isTaskState(over.id)
+    ) {
+      return;
+    }
+    dropTask(active.id, over.id);
+  };
+
   const handleDelete = (id: number) => {
     const deletedTask = tasks.find((task) => task.id === id);
     setTasks((currentTasks) =>
@@ -109,21 +136,27 @@ export function TaskBoardComponent() {
 
       <NewTaskForm onAdd={addTask} />
 
-      <section className="board__columns">
-        {columnOrder.map((state) => (
-          <Column
-            key={state}
-            state={state}
-            label={labels[state]}
-            tasks={tasksByState(state)}
-            onMove={moveTask}
-            onDropTask={dropTask}
-            onDelete={handleDelete}
-          />
-        ))}
-      </section>
+      <DndContext sensors={dragSensors} onDragEnd={handleDragEnd}>
+        <section className="board__columns">
+          {columnOrder.map((state) => (
+            <Column
+              key={state}
+              state={state}
+              label={labels[state]}
+              tasks={tasksByState(state)}
+              onMove={moveTask}
+              onDelete={handleDelete}
+            />
+          ))}
+        </section>
+      </DndContext>
 
-      <p className="visually-hidden" role="status" aria-live="polite">
+      <p
+        className="visually-hidden"
+        data-testid="board-announcement"
+        role="status"
+        aria-live="polite"
+      >
         {announcement}
       </p>
     </section>
@@ -198,4 +231,8 @@ function isTask(value: unknown): value is Task {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
+}
+
+function isTaskState(value: unknown): value is TaskState {
+  return Object.values(TaskState).includes(value as TaskState);
 }
