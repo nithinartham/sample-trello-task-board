@@ -1,5 +1,7 @@
 # 📋 Trello-Style Task Board – Qualified Digital FED Test
 
+**Candidate:** Nithin Artham
+
 A four-column Trello-style task board (Todo → In Progress → In Review → Done) with AI-powered follow-up suggestions, built with **React 17 + TypeScript + SCSS** and served as **static assets + Netlify Functions**.
 
 This is a **starter scaffold** for the Qualified Digital FED development test. The project structure and configuration are complete, but the UI components, styling, and backend integration are intentionally left for you to implement.
