@@ -124,6 +124,7 @@ src/
 - Native drag-and-drop with accessible movement-button alternatives
 - Bug, Story, and Task classifications
 - Fibonacci effort points with per-column totals
+- Versioned local persistence across browser refreshes
 - Responsive mobile, tablet, and desktop layouts
 - Optional provider-backed suggestions with a clearly labeled offline demo mode
 - Defensive API validation and graceful error handling

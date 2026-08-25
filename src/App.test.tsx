@@ -3,6 +3,10 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+  });
+
   it('renders all workflow columns', () => {
     render(<App />);
 
@@ -126,5 +130,23 @@ describe('App', () => {
     expect(screen.getByRole('status')).toHaveTextContent(
       'Drag this task moved to Done.'
     );
+  });
+
+  it('restores saved tasks after the app remounts', () => {
+    const firstRender = render(<App />);
+    fireEvent.change(screen.getByLabelText('Task description'), {
+      target: { value: 'Persist this task' },
+    });
+    fireEvent.change(screen.getByLabelText('Points'), { target: { value: '13' } });
+    fireEvent.change(screen.getByLabelText('Type'), { target: { value: 'bug' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Add task' }));
+    firstRender.unmount();
+
+    render(<App />);
+    const todoColumn = screen.getByRole('region', { name: 'Todo' });
+
+    expect(within(todoColumn).getByText('Persist this task')).toBeInTheDocument();
+    expect(within(todoColumn).getByText('Bug')).toBeInTheDocument();
+    expect(within(todoColumn).getByLabelText('13 points')).toBeInTheDocument();
   });
 });

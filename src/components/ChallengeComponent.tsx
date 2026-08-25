@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Task, TaskState, WorkItemType, MoveDir } from '../types';
+import {
+  Task,
+  TaskState,
+  WorkItemType,
+  MoveDir,
+  MAX_TASK_LENGTH,
+} from '../types';
 import Column from './Column';
 import NewTaskForm from './NewTaskForm';
 import '../styles.scss';
@@ -11,11 +17,20 @@ const columnOrder: TaskState[] = [
   TaskState.Done,
 ];
 
+const STORAGE_KEY = 'qd-task-board:v1';
+const POINT_OPTIONS = [1, 2, 3, 5, 8, 13];
+
 export function TaskBoardComponent() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(loadTasks);
   const [announcement, setAnnouncement] = useState('');
   const [focusedTaskId, setFocusedTaskId] = useState<number | null>(null);
-  const nextTaskId = useRef(Date.now());
+  const nextTaskId = useRef(
+    Math.max(Date.now(), ...tasks.map((task) => task.id + 1))
+  );
+
+  useEffect(() => {
+    saveTasks(tasks);
+  }, [tasks]);
 
   useEffect(() => {
     if (focusedTaskId === null) return;
@@ -125,4 +140,62 @@ const labels: Record<TaskState, string> = {
 function nextState(state: TaskState, dir: MoveDir): TaskState {
   const i = columnOrder.indexOf(state) + dir;
   return columnOrder[i] ?? state;
+}
+
+function loadTasks(): Task[] {
+  try {
+    const storedValue = window.localStorage.getItem(STORAGE_KEY);
+    if (!storedValue) return [];
+
+    const data: unknown = JSON.parse(storedValue);
+    if (
+      !isRecord(data) ||
+      data.version !== 1 ||
+      !Array.isArray(data.tasks) ||
+      !data.tasks.every(isTask)
+    ) {
+      console.warn('Ignoring invalid saved task-board data.');
+      return [];
+    }
+    return data.tasks;
+  } catch (error) {
+    console.warn(
+      'Task persistence is unavailable:',
+      error instanceof Error ? error.message : 'Unknown storage error'
+    );
+    return [];
+  }
+}
+
+function saveTasks(tasks: Task[]) {
+  try {
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ version: 1, tasks })
+    );
+  } catch (error) {
+    console.warn(
+      'Could not save task-board data:',
+      error instanceof Error ? error.message : 'Unknown storage error'
+    );
+  }
+}
+
+function isTask(value: unknown): value is Task {
+  if (!isRecord(value)) return false;
+
+  return (
+    Number.isSafeInteger(value.id) &&
+    typeof value.text === 'string' &&
+    value.text.trim().length > 0 &&
+    value.text.length <= MAX_TASK_LENGTH &&
+    typeof value.points === 'number' &&
+    POINT_OPTIONS.includes(value.points) &&
+    Object.values(WorkItemType).includes(value.type as WorkItemType) &&
+    Object.values(TaskState).includes(value.state as TaskState)
+  );
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
 }

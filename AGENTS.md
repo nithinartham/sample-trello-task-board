@@ -14,6 +14,7 @@ TypeScript, SCSS, and Netlify Functions scaffold.
 - Drag tasks directly between workflow columns.
 - Delete tasks.
 - Display task points and per-column point totals.
+- Restore validated task data after a browser refresh.
 - Keep the core board usable when AI suggestions are unavailable.
 - Support mobile, tablet, desktop, keyboard, and assistive-technology users.
 

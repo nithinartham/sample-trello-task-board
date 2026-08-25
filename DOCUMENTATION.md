@@ -78,6 +78,12 @@ Task state remains local to `TaskBoardComponent`, matching the requested
 architecture. A monotonic numeric identifier seeded from the current time avoids
 collisions when several tasks are added in the same millisecond.
 
+Tasks persist in browser `localStorage` under a versioned key. Restored data is
+validated against the task states, work-item types, point scale, title length,
+and identifier shape before it enters React state. Corrupt or unavailable
+storage is reported to the console while the board continues with empty,
+in-memory state.
+
 ### AI integration and security
 
 - Provider access occurs only in the Netlify function; credentials never enter
@@ -113,7 +119,7 @@ Do not commit or distribute `.env`.
 
 ## Trade-offs and future work
 
-Tasks intentionally remain in memory, as requested by the scaffold. With more
-time, persistence could be added through local storage or a backend, followed by
-task editing and drag-and-drop. A production deployment should also add
-rate-limiting and abuse monitoring to the AI endpoint.
+Browser storage provides lightweight single-device persistence. A multi-user
+production version would replace it with authenticated backend storage, followed
+by task editing and cross-device synchronization. A production deployment should
+also add rate-limiting and abuse monitoring to the AI endpoint.
