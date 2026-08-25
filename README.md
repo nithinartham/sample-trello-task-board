@@ -41,7 +41,14 @@ serverless function through the same origin.
 | `npm start` | Start React without the function proxy |
 | `npm test -- --watchAll=false` | Run the test suite once |
 | `npm test -- --watchAll=false --coverage` | Run tests with coverage |
+| `npm run test:e2e` | Run the Playwright browser tests |
 | `npm run build` | Create the production bundle |
+
+Install the Chromium test browser once before the first end-to-end run:
+
+```bash
+npx playwright install chromium
+```
 
 ## Optional AI provider
 
@@ -134,6 +141,14 @@ The Jest and React Testing Library suites cover:
 - API-client success, failure, and malformed responses
 - Netlify method, JSON, and input validation
 - Offline demo suggestions
+
+The Playwright suite runs against the complete Netlify development application
+in Chromium and verifies:
+
+- Task creation and movement through the workflow
+- Browser persistence after a page refresh
+- Pointer-based drag-and-drop between columns
+- Dark-mode persistence after a page refresh
 
 ## Documentation
 

@@ -113,8 +113,10 @@ in-memory state.
 1. Run `npm install`.
 2. Run `npm start` for the core board, or create an ignored `.env` and run
    `npm run dev` for Netlify Functions.
-3. Run `npm test -- --watchAll=false` for tests.
-4. Run `npm run build` for the production bundle.
+3. Run `npm test -- --watchAll=false` for the Jest integration tests.
+4. Run `npx playwright install chromium` once, then `npm run test:e2e` for the
+   browser-level workflow tests.
+5. Run `npm run build` for the production bundle.
 
 Example optional AI configuration:
 
