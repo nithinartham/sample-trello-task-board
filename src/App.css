@@ -1,0 +1,101 @@
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  border-bottom: 1px solid #e4e7ec;
+  background: white;
+  color: #101828;
+  padding: 16px 24px;
+}
+
+.App-header__content {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.App-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #101828;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.App-brand__mark {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 10px;
+  background: #155eef;
+  color: white;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+}
+
+.App-brand:focus {
+  outline: 3px solid #b2ccff;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.App-brand > span:last-child {
+  display: grid;
+  line-height: 1.2;
+}
+
+.App-brand small {
+  margin-top: 3px;
+  color: #667085;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.App-header__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475467;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.App-header__status span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #17b26a;
+  box-shadow: 0 0 0 4px #ecfdf3;
+}
+
+.App-main {
+  flex: 1;
+  width: 100%;
+}
+
+@media (max-width: 599px) {
+  .App-header {
+    padding: 16px;
+  }
+
+  .App-header__content {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .App-header__status {
+    display: none;
+  }
+}
