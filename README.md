@@ -14,6 +14,7 @@ Netlify Functions, and optional OpenAI-compatible suggestions.
 - Task, Story, and Bug classifications
 - Fibonacci effort points with per-column totals
 - Versioned browser persistence across refreshes
+- Persistent light and dark themes with system-preference initialization
 - Responsive mobile, tablet, and desktop layouts
 - Accessible labels, focus management, live announcements, and reduced motion
 - Optional provider-backed suggestions with a labeled offline demo fallback
@@ -118,6 +119,7 @@ storage falls back to an empty in-memory board.
 - Focus follows a card after button-based movement.
 - Live regions announce movement and deletion.
 - The layout displays one, two, or four columns according to viewport width.
+- The theme toggle exposes its current state and supports keyboard operation.
 
 ## Testing
 

@@ -15,6 +15,7 @@ TypeScript, SCSS, and Netlify Functions scaffold.
 - Delete tasks.
 - Display task points and per-column point totals.
 - Restore validated task data after a browser refresh.
+- Support persistent light and dark themes with accessible controls.
 - Keep the core board usable when AI suggestions are unavailable.
 - Support mobile, tablet, desktop, keyboard, and assistive-technology users.
 

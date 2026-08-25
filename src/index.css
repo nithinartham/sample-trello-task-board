@@ -4,6 +4,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html[data-theme='dark'] {
+  background: #0c111d;
+  color-scheme: dark;
+}
+
 button,
 input,
 select {

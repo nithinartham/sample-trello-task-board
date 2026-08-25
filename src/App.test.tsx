@@ -5,6 +5,7 @@ import App from './App';
 describe('App', () => {
   beforeEach(() => {
     window.localStorage.clear();
+    document.documentElement.removeAttribute('data-theme');
   });
 
   it('renders all workflow columns', () => {
@@ -136,5 +137,29 @@ describe('App', () => {
     expect(within(todoColumn).getByText('Persist this task')).toBeInTheDocument();
     expect(within(todoColumn).getByText('Bug')).toBeInTheDocument();
     expect(within(todoColumn).getByLabelText('13 points')).toBeInTheDocument();
+  });
+
+  it('toggles and restores the saved color theme', () => {
+    const firstRender = render(<App />);
+    const darkModeButton = screen.getByRole('button', {
+      name: 'Dark mode',
+    });
+
+    expect(darkModeButton).toHaveAttribute('aria-pressed', 'false');
+    fireEvent.click(darkModeButton);
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
+    expect(window.localStorage.getItem('qd-task-board:theme')).toBe('dark');
+    expect(screen.getByRole('button', { name: 'Dark mode' })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    );
+    firstRender.unmount();
+
+    render(<App />);
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
+    expect(screen.getByRole('button', { name: 'Dark mode' })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    );
   });
 });

@@ -51,6 +51,14 @@ The board is mobile-first: one column on small screens, two on tablets, and four
 on desktop. Long task text wraps rather than overflowing, and the task form stacks
 on narrow screens.
 
+### Color themes
+
+An accessible header control switches between light and dark themes. The initial
+theme respects a saved preference, then the operating system color preference.
+The selection persists separately from task data. Dark-theme surfaces, controls,
+badges, focus states, errors, drag targets, and disabled states use explicit
+contrast-safe colors.
+
 ### Effort points
 
 Task creation includes a constrained Fibonacci selector with 1, 2, 3, 5, 8, and
