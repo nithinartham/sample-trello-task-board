@@ -307,17 +307,13 @@ button {
   background: $color-surface;
   color: #667085;
   cursor: grab;
+  user-select: none;
   touch-action: none;
 
   &:hover {
     border-color: $color-primary;
     background: #eff4ff;
     color: $color-primary-dark;
-  }
-
-  &:focus {
-    outline: 3px solid $color-focus;
-    outline-offset: 2px;
   }
 
   &:active {

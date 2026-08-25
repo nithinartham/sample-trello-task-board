@@ -111,10 +111,12 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Add task' }));
 
     const card = screen.getByRole('article', { name: 'Drag this task' });
-    const dragHandle = screen.getByRole('button', { name: 'Drag Drag this task' });
+    const dragHandle = screen.getByTestId(
+      card.getAttribute('id')!.replace('task-', 'drag-handle-')
+    );
 
     expect(card).not.toHaveAttribute('draggable');
-    expect(dragHandle).toHaveAttribute('aria-describedby');
+    expect(dragHandle).toHaveAttribute('aria-hidden', 'true');
     expect(within(card).getByLabelText('8 points')).toBeInTheDocument();
   });
 

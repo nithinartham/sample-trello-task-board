@@ -10,7 +10,6 @@ interface Props {
 
 export default function TaskCard({ task, onMove, onDelete }: Props) {
   const {
-    attributes,
     listeners,
     setNodeRef,
     transform,
@@ -48,15 +47,14 @@ export default function TaskCard({ task, onMove, onDelete }: Props) {
         </span>
       </div>
       <div className="card__actions" aria-label={`Actions for ${task.text}`}>
-        <button
+        <span
           className="card__drag-handle"
-          type="button"
-          {...attributes}
           {...listeners}
-          aria-label={`Drag ${task.text}`}
+          aria-hidden="true"
+          data-testid={`drag-handle-${task.id}`}
         >
-          <span aria-hidden="true">::</span>
-        </button>
+          ::
+        </span>
         <button
           className="card__btn"
           type="button"
