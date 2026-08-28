@@ -6,6 +6,10 @@ A responsive Trello-style workflow board completed for the Qualified Digital
 Frontend Developer assessment. The application uses React 17, TypeScript, SCSS,
 Netlify Functions, and optional OpenAI-compatible suggestions.
 
+## Application preview
+
+![Qualified Digital task board with task creation controls and four workflow columns](docs/task-board-preview.png)
+
 ## Features
 
 - Todo, In Progress, In Review, and Done workflow columns
