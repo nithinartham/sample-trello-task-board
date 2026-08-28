@@ -1,10 +1,9 @@
-# Qualified Digital Task Board
+# Sample Trello Task Board
 
 **Candidate:** Nithin Artham
 
-A responsive Trello-style workflow board completed for the Qualified Digital
-Frontend Developer assessment. The application uses React 17, TypeScript, SCSS,
-Netlify Functions, and optional OpenAI-compatible suggestions.
+A production-minded Trello-style workflow board built with React 17, TypeScript,
+SCSS, Netlify Functions, and optional OpenAI-compatible suggestions.
 
 ## Application preview
 
@@ -159,8 +158,8 @@ in Chromium and verifies:
 - `AGENTS.md` defines implementation and validation expectations.
 - `DOCUMENTATION.md` records AI-tool usage, architecture decisions, security,
   accessibility, and tradeoffs.
-- `INSTRUCTIONS.md` and `SETUP_GUIDE.md` preserve the supplied assessment
-  reference material.
+- `INSTRUCTIONS.md` and `SETUP_GUIDE.md` preserve the original project reference
+  material.
 
 ## Tradeoffs and future work
 

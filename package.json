@@ -1,9 +1,9 @@
 {
-  "name": "qd-fed-trello-developer-test",
+  "name": "sample-trello-task-board",
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "description": "Qualified Digital Frontend Developer Test - Trello-style Task Board",
+  "description": "A responsive Trello-style workflow board",
   "proxy": "http://localhost:5050",
   "dependencies": {
     "@dnd-kit/core": "6.1.0",
